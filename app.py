@@ -68,7 +68,7 @@ st.write("Paste Amazon product reviews below **(one review per line)** and analy
 review_text = st.text_area(
     "✍️ Paste Amazon Reviews Here",
     height=260,
-    placeholder="This product is amazing and worth the price\nWorst purchase ever, waste of money\nGood quality and fast delivery"
+    placeholder="Write your Amazon reviews here..."
 )
 
 if st.button("Analyze Product Reviews"):
