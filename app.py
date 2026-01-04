@@ -1,3 +1,14 @@
+import os
+import pickle
+
+MODEL_PATH = "sentiment_model.pkl"
+VECTORIZER_PATH = "tfidf_vectorizer.pkl"
+
+if not os.path.exists(MODEL_PATH) or not os.path.exists(VECTORIZER_PATH):
+    from src.train import train_and_save_model
+    train_and_save_model()
+
+
 import streamlit as st
 import pickle
 import re
@@ -6,13 +17,34 @@ import nltk
 from nltk.corpus import stopwords
 
 # Download stopwords (only first time)
-nltk.download('stopwords')
+import nltk
+try:
+    nltk.data.find('corpora/stopwords')
+except LookupError:
+    nltk.download('stopwords')
+
 
 # ------------------ Load Model & Vectorizer ------------------
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+import os
+import urllib.request
+import pickle
 
-model = pickle.load(open(os.path.join(BASE_DIR, "sentiment_model.pkl"), "rb"))
-tfidf = pickle.load(open(os.path.join(BASE_DIR, "tfidf_vectorizer.pkl"), "rb"))
+MODEL_URL = "https://github.com/bytebyanjalii/Amazon-Sentiment-Analyzer/releases/download/v1.0-model/sentiment_model.pkl"
+VECTORIZER_URL = "https://github.com/bytebyanjalii/Amazon-Sentiment-Analyzer/releases/download/v1.0-model/tfidf_vectorizer.pkl"
+
+MODEL_PATH = "sentiment_model.pkl"
+VECTORIZER_PATH = "tfidf_vectorizer.pkl"
+
+# Download model if not present (for Streamlit Cloud)
+if not os.path.exists(MODEL_PATH):
+    urllib.request.urlretrieve(MODEL_URL, MODEL_PATH)
+
+if not os.path.exists(VECTORIZER_PATH):
+    urllib.request.urlretrieve(VECTORIZER_URL, VECTORIZER_PATH)
+
+model = pickle.load(open(MODEL_PATH, "rb"))
+tfidf = pickle.load(open(VECTORIZER_PATH, "rb"))
+
 
 stop_words = set(stopwords.words('english'))
 
