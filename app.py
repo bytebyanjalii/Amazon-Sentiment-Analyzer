@@ -4,11 +4,6 @@ import pickle
 MODEL_PATH = "sentiment_model.pkl"
 VECTORIZER_PATH = "tfidf_vectorizer.pkl"
 
-if not os.path.exists(MODEL_PATH) or not os.path.exists(VECTORIZER_PATH):
-    from src.train import train_and_save_model
-    train_and_save_model()
-
-
 import streamlit as st
 import pickle
 import re
