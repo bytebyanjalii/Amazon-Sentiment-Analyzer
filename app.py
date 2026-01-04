@@ -1,0 +1,89 @@
+import streamlit as st
+import pickle
+import re
+import os
+import nltk
+from nltk.corpus import stopwords
+
+# Download stopwords (only first time)
+nltk.download('stopwords')
+
+# ------------------ Load Model & Vectorizer ------------------
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+model = pickle.load(open(os.path.join(BASE_DIR, "sentiment_model.pkl"), "rb"))
+tfidf = pickle.load(open(os.path.join(BASE_DIR, "tfidf_vectorizer.pkl"), "rb"))
+
+stop_words = set(stopwords.words('english'))
+
+# ------------------ Text Cleaning Function ------------------
+def clean_text(text):
+    text = text.lower()
+    text = re.sub(r'<.*?>', '', text)
+    text = re.sub(r'[^a-z\s]', '', text)
+    text = text.split()
+    text = [word for word in text if word not in stop_words]
+    return " ".join(text)
+
+# ------------------ Prediction Function ------------------
+def predict_sentiment(review):
+    review_clean = clean_text(review)
+    review_vec = tfidf.transform([review_clean])
+    prediction = model.predict(review_vec)[0]
+    return prediction
+
+# ------------------ Streamlit UI ------------------
+st.set_page_config(page_title="Amazon Sentiment Analyzer", layout="centered")
+
+st.title("🛒 Amazon Review Sentiment Analyzer")
+st.write("Paste Amazon product reviews below **(one review per line)** and analyze overall product feedback.")
+
+review_text = st.text_area(
+    "✍️ Paste Amazon Reviews Here",
+    height=260,
+    placeholder="This product is amazing and worth the price\nWorst purchase ever, waste of money\nGood quality and fast delivery"
+)
+
+if st.button("Analyze Product Reviews"):
+    if review_text.strip() == "":
+        st.warning("Please paste at least one review.")
+    else:
+        reviews = review_text.split("\n")
+
+        positive_count = 0
+        negative_count = 0
+        results = []
+
+        for review in reviews:
+            if review.strip() == "":
+                continue
+
+            sentiment = predict_sentiment(review)
+            results.append((review, sentiment))
+
+            if sentiment == "positive":
+                positive_count += 1
+            else:
+                negative_count += 1
+
+        total_reviews = positive_count + negative_count
+
+        # -------- Summary --------
+        st.subheader("📊 Analysis Summary")
+        st.write(f"**Total Reviews:** {total_reviews}")
+        st.write(f"✅ **Positive Reviews:** {positive_count}")
+        st.write(f"❌ **Negative Reviews:** {negative_count}")
+
+        if positive_count > negative_count:
+            st.success("🟢 Overall Product Feedback: **POSITIVE**")
+        else:
+            st.error("🔴 Overall Product Feedback: **NEGATIVE**")
+
+        # -------- Individual Review Results --------
+        st.subheader("📝 Individual Review Analysis")
+        for review, sentiment in results:
+            if sentiment == "positive":
+                st.markdown(f"✅ **Positive** — {review}")
+            else:
+                st.markdown(f"❌ **Negative** — {review}")
+

@@ -1,0 +1,16 @@
+# Virtual environment
+venv/
+
+# Data files
+data/
+*.csv
+*.sqlite
+
+# Models
+*.pkl
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
