@@ -27,5 +27,4 @@ This project analyzes Amazon product reviews and predicts whether a review is **
 - Hosted on **Streamlit Cloud** for seamless access.
 - Model artifacts distributed via **GitHub Releases** for version control and reproducibility.
 
-![Uploading Screenshot 2026-01-04 133116.png…]()
-![Uploading Screenshot 2026-01-04 133130.png…]()
+
