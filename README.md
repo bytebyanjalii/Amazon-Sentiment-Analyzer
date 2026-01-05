@@ -1,31 +1,57 @@
-# Amazon Sentiment Analyzer 🛒
+# 🛒 Amazon Sentiment Analyzer
 
-## 🚀 Live Demo
-🔗 https://amazon-sentiment-analyzer-enlbaq7wcwwrgcvw7hvfq4.streamlit.app/
+A Machine Learning–powered web application that analyzes the **sentiment of Amazon product reviews** using **Natural Language Processing (NLP)**.  
+Built with **Python, Scikit-learn, and Streamlit**, and deployed on **Streamlit Cloud**.
 
-This project analyzes Amazon product reviews and predicts whether a review is **Positive** or **Negative** using Natural Language Processing (NLP).
+🔗 **Live App:**  
+https://amazon-sentiment-analyzer-enlbaq7wcwwrgcvw7hvfq4.streamlit.app/
 
+---
 
+## 📌 Project Overview
 
-**Key Features**
-- Comprehensive text preprocessing using **NLTK**.
-- Feature extraction through **TF-IDF vectorization**.
-- Robust **Logistic Regression** classifier for sentiment analysis.
-- Supports **binary sentiment prediction**: Positive or Negative.
-- Fully accessible via a **Streamlit web application**.
+Online reviews heavily influence purchasing decisions. This project helps users **understand customer sentiment** by classifying Amazon reviews as:
 
-**Technology Stack**
-- **Programming Language:** Python
-- **Libraries:** Pandas, NumPy, Scikit-learn, NLTK
-- **Web Framework:** Streamlit
+- 😊 **Positive**
+- 😠 **Negative**
 
-**Model Performance**
-- **Accuracy:** ~90%
-- **Precision (Positive Class):** 0.98
-- **Recall (Negative Class):** 0.88
+The app uses a trained ML model to analyze text input and instantly return feedback.
 
-**Deployment Details**
-- Hosted on **Streamlit Cloud** for seamless access.
-- Model artifacts distributed via **GitHub Releases** for version control and reproducibility.
+---
+
+## 🎯 Features
+
+- 🧠 NLP-based sentiment classification  
+- ✍️ User-friendly Streamlit UI  
+- ⚡ Real-time prediction  
+- 🧹 Text preprocessing (lowercasing, stopword removal, regex cleaning)  
+- ☁️ Deployed on Streamlit Cloud  
+- 📦 Clean project structure (GitHub ready)
+
+---
+
+## 🛠️ Tech Stack
+
+### 🔹 Programming & Libraries
+- Python
+- NumPy
+- Pandas
+- Scikit-learn
+- NLTK
+- Regex
+
+### 🔹 Machine Learning
+- TF-IDF Vectorization
+- Logistic Regression (Sentiment Classification)
+
+### 🔹 Deployment
+- Streamlit
+- Streamlit Cloud
+- Git & GitHub
+
+---
+
+## 📂 Project Structure
+
 
 
